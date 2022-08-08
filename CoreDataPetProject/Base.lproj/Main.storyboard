@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,13 +35,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RtF-hf-uwd">
-                                <rect key="frame" x="172" y="352" width="16" height="21"/>
+                                <rect key="frame" x="172" y="337" width="16" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of trips:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxz-3m-cdC">
-                                <rect key="frame" x="20" y="398" width="124" height="21"/>
+                                <rect key="frame" x="20" y="383" width="124" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="124" id="GwS-6b-bXH"/>
                                     <constraint firstAttribute="height" constant="21" id="WJQ-wy-2cN"/>
@@ -52,13 +51,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjP-4M-muC">
-                                <rect key="frame" x="172" y="398" width="11" height="21"/>
+                                <rect key="frame" x="172" y="383" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8S-WV-DxL">
-                                <rect key="frame" x="231" y="398" width="54" height="21"/>
+                                <rect key="frame" x="231" y="383" width="54" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="54" id="jZw-pG-rCA"/>
                                     <constraint firstAttribute="height" constant="21" id="vgh-xQ-sg7"/>
@@ -68,7 +67,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X / 10.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxl-fF-z5R">
-                                <rect key="frame" x="320" y="398" width="56" height="21"/>
+                                <rect key="frame" x="320" y="383" width="56" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="vgG-Rp-Xk1"/>
                                 </constraints>
@@ -105,7 +104,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Start Engine" cornerStyle="fixed">
                                     <backgroundConfiguration key="background" cornerRadius="10">
-                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
                                     </backgroundConfiguration>
                                     <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="12"/>
                                     <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
@@ -123,7 +122,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Rate" cornerStyle="fixed">
                                     <backgroundConfiguration key="background" cornerRadius="10">
-                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
                                     </backgroundConfiguration>
                                     <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="12"/>
                                     <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
@@ -133,7 +132,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last time started:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxu-WS-uaE">
-                                <rect key="frame" x="20" y="352" width="133" height="21"/>
+                                <rect key="frame" x="20" y="337" width="133" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="8Qm-jV-lVc"/>
                                     <constraint firstAttribute="height" constant="21" id="meM-TV-GXt"/>
@@ -144,13 +143,13 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jdb-M5-85a" secondAttribute="bottom" constant="40" id="1tP-Dj-cjo"/>
                             <constraint firstItem="jdb-M5-85a" firstAttribute="leading" relation="lessThanOrEqual" secondItem="llM-ah-fMe" secondAttribute="trailing" constant="184" id="2zr-fK-u5s"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ngg-oU-Zsv" secondAttribute="trailing" constant="8" id="3Hw-gQ-k3N"/>
                             <constraint firstItem="JPI-FC-ig1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="5zC-e0-Y7F"/>
-                            <constraint firstItem="lB2-UM-OWG" firstAttribute="top" secondItem="uxz-3m-cdC" secondAttribute="bottom" constant="115" id="6u2-fD-zae"/>
+                            <constraint firstItem="lB2-UM-OWG" firstAttribute="top" secondItem="uxz-3m-cdC" secondAttribute="bottom" constant="130" id="6u2-fD-zae"/>
                             <constraint firstItem="RMG-6g-hvj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7bq-2A-wpF"/>
                             <constraint firstItem="RtF-hf-uwd" firstAttribute="centerY" secondItem="gxu-WS-uaE" secondAttribute="centerY" id="9VY-um-unG"/>
                             <constraint firstItem="lB2-UM-OWG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AfK-gP-oXx"/>
@@ -169,7 +168,7 @@
                             <constraint firstItem="dxl-fF-z5R" firstAttribute="leading" secondItem="Y8S-WV-DxL" secondAttribute="trailing" constant="35" id="ZOB-fs-uXY"/>
                             <constraint firstItem="NWZ-Wu-e5d" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="cz2-hB-TYj"/>
                             <constraint firstItem="uxz-3m-cdC" firstAttribute="top" secondItem="gxu-WS-uaE" secondAttribute="bottom" constant="25" id="dp1-pn-8Wc"/>
-                            <constraint firstItem="lB2-UM-OWG" firstAttribute="top" secondItem="Y8S-WV-DxL" secondAttribute="bottom" constant="115" id="gWL-mh-Xln"/>
+                            <constraint firstItem="Y8S-WV-DxL" firstAttribute="centerY" secondItem="uxz-3m-cdC" secondAttribute="centerY" id="iKD-dR-vXo"/>
                             <constraint firstItem="Ngg-oU-Zsv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="nZh-qf-frb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RtF-hf-uwd" secondAttribute="trailing" symbolic="YES" id="oxR-TT-hIU"/>
                             <constraint firstItem="WjP-4M-muC" firstAttribute="leading" secondItem="uxz-3m-cdC" secondAttribute="trailing" constant="28" id="pga-Ih-Ds6"/>
@@ -198,11 +197,17 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

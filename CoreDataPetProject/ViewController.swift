@@ -12,6 +12,12 @@ class ViewController: UIViewController {
     
     var context: NSManagedObjectContext!
     
+    lazy var dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateStyle = .short
+        df.timeStyle = .none
+        return df
+    }()
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var markLabel: UILabel!
@@ -25,12 +31,23 @@ class ViewController: UIViewController {
     @IBAction func segmentedControlPressed(_ sender: UISegmentedControl) {
     }
     
-    
     @IBAction func startEngineButtonPressed() {
     }
     
     @IBAction func rateButtonPressed(_ sender: Any) {
     }
+    
+    private func insertDataFrom(seletedCar car: Car) {
+        carImageVIew.image = UIImage(data: car.imageData!)
+        markLabel.text = car.mark
+        modelLabel.text = car.model
+        myChoiseImage.isHidden = !(car.myChoice)
+        ratingLabel.text = "\(car.myRating)/10.0"
+        numberOfTripsLabel.text = "\(car.timesDriven)"
+        lastStartedLabel.text = "\(dateFormatter.string(from: car.lastStarted!))"
+        segmentedControl.tintColor = car.tintColor as? UIColor
+    }
+    
     
     private func getDataFromFile() {
         
@@ -87,7 +104,32 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ratingLabel.adjustsFontSizeToFitWidth = true
+        ratingLabel.minimumScaleFactor = 0.2
+        
+        lastStartedLabel.adjustsFontSizeToFitWidth = true
+        lastStartedLabel.minimumScaleFactor = 0.2
+        
+        numberOfTripsLabel.adjustsFontSizeToFitWidth = true
+        numberOfTripsLabel.minimumScaleFactor = 0.2
+        
+        
         getDataFromFile()
+        
+        let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
+        let mark = segmentedControl.titleForSegment(at: 0)
+        fetchRequest.predicate = NSPredicate(format: "mark == %@", mark!)
+        
+        do {
+            let res = try context.fetch(fetchRequest)
+            let selectedCar = res.first
+            insertDataFrom(seletedCar: selectedCar!)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        
     }
     
     

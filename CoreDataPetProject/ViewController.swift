@@ -10,15 +10,17 @@ import CoreData
 
 class ViewController: UIViewController {
     
+    // MARK: Fields
     var context: NSManagedObjectContext!
-    
     lazy var dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateStyle = .short
         df.timeStyle = .none
         return df
     }()
+    var selectedCar: Car!
     
+    // MARK: IBOutlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var markLabel: UILabel!
     @IBOutlet weak var modelLabel: UILabel!
@@ -28,15 +30,38 @@ class ViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var myChoiseImage: UIImageView!
     
+    // MARK: IBActions
     @IBAction func segmentedControlPressed(_ sender: UISegmentedControl) {
     }
     
     @IBAction func startEngineButtonPressed() {
+        selectedCar.timesDriven += 1
+        selectedCar.lastStarted = Date()
+        do {
+            try context.save()
+            insertDataFrom(seletedCar: selectedCar)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
     }
     
     @IBAction func rateButtonPressed(_ sender: Any) {
+        let alertController = UIAlertController(title: "Rate it", message: "Rate this car, please", preferredStyle: .alert)
+        let rateAction = UIAlertAction(title: "Rate", style: .default) { action in
+            if let text = alertController.textFields?.first?.text {
+                self.update(rating: (text as NSString).doubleValue)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+        alertController.addTextField { textField in
+            textField.keyboardType = .numberPad
+        }
+        alertController.addAction(rateAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
+    // MARK: Work with file data
     private func insertDataFrom(seletedCar car: Car) {
         carImageVIew.image = UIImage(data: car.imageData!)
         markLabel.text = car.mark
@@ -45,9 +70,8 @@ class ViewController: UIViewController {
         ratingLabel.text = "\(car.myRating)/10.0"
         numberOfTripsLabel.text = "\(car.timesDriven)"
         lastStartedLabel.text = "\(dateFormatter.string(from: car.lastStarted!))"
-        segmentedControl.tintColor = car.tintColor as? UIColor
+        segmentedControl.backgroundColor = car.tintColor as? UIColor
     }
-    
     
     private func getDataFromFile() {
         
@@ -94,6 +118,7 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: Utility
     private func getColorDictionary(_ colorDictionary: [String : Float]) -> UIColor {
         guard let red = colorDictionary["red"],
               let green = colorDictionary["green"],
@@ -102,6 +127,22 @@ class ViewController: UIViewController {
         return UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1.0)
     }
     
+    private func update(rating: Double) {
+        selectedCar.myRating = rating
+        
+        do {
+            try context.save()
+            insertDataFrom(seletedCar: selectedCar)
+        } catch let error as NSError {
+            let alertController = UIAlertController(title: "Wrong value", message: "Wrong input", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default)
+            alertController.addAction(okAction)
+            present(alertController, animated: true)
+            print(error.localizedDescription)
+        }
+    }
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,7 +164,7 @@ class ViewController: UIViewController {
         
         do {
             let res = try context.fetch(fetchRequest)
-            let selectedCar = res.first
+            selectedCar = res.first
             insertDataFrom(seletedCar: selectedCar!)
         } catch let error as NSError {
             print(error.localizedDescription)

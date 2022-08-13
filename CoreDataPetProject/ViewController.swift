@@ -21,7 +21,11 @@ class ViewController: UIViewController {
     var selectedCar: Car!
     
     // MARK: IBOutlets
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedControl: UISegmentedControl! {
+        didSet {
+            updeateSegmentedControl()
+        }
+    }
     @IBOutlet weak var markLabel: UILabel!
     @IBOutlet weak var modelLabel: UILabel!
     @IBOutlet weak var carImageVIew: UIImageView!
@@ -32,6 +36,12 @@ class ViewController: UIViewController {
     
     // MARK: IBActions
     @IBAction func segmentedControlPressed(_ sender: UISegmentedControl) {
+        updeateSegmentedControl()
+        segmentedControl.selectedSegmentTintColor = .white
+        let whiteTextAttribute = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        let blackTextAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        UISegmentedControl.appearance().setTitleTextAttributes(whiteTextAttribute, for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes(blackTextAttribute, for: .selected)
     }
     
     @IBAction func startEngineButtonPressed() {
@@ -61,6 +71,21 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    private func updeateSegmentedControl() {
+        let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
+        let mark = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)
+        fetchRequest.predicate = NSPredicate(format: "mark == %@", mark!)
+        
+        do {
+            let res = try context.fetch(fetchRequest)
+            selectedCar = res.first
+            insertDataFrom(seletedCar: selectedCar!)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     // MARK: Work with file data
     private func insertDataFrom(seletedCar car: Car) {
         carImageVIew.image = UIImage(data: car.imageData!)
@@ -70,7 +95,6 @@ class ViewController: UIViewController {
         ratingLabel.text = "\(car.myRating)/10.0"
         numberOfTripsLabel.text = "\(car.timesDriven)"
         lastStartedLabel.text = "\(dateFormatter.string(from: car.lastStarted!))"
-        segmentedControl.backgroundColor = car.tintColor as? UIColor
     }
     
     private func getDataFromFile() {
@@ -127,9 +151,36 @@ class ViewController: UIViewController {
         return UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1.0)
     }
     
+    private func findAllCars() -> [Car] {
+        let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
+        do {
+            let res = try context.fetch(fetchRequest)
+            return res
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        return []
+    }
+    
+    private func findBestCar(from allCars: [Car]) -> Car? {
+        var maxRating = allCars.first?.myRating
+        var bestCar: Car?
+        for car in allCars {
+            if (maxRating != nil) && car.myRating >= maxRating! {
+                bestCar = car
+                maxRating = car.myRating
+            }
+        }
+        return bestCar
+    }
+    
     private func update(rating: Double) {
         selectedCar.myRating = rating
-        
+        let allCars = findAllCars()
+        let bestCar = findBestCar(from: allCars)
+        for car in allCars {
+            car.myChoice = bestCar == nil ? false : car == bestCar
+        }
         do {
             try context.save()
             insertDataFrom(seletedCar: selectedCar)
@@ -158,17 +209,7 @@ class ViewController: UIViewController {
         
         getDataFromFile()
         
-        let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
-        let mark = segmentedControl.titleForSegment(at: 0)
-        fetchRequest.predicate = NSPredicate(format: "mark == %@", mark!)
         
-        do {
-            let res = try context.fetch(fetchRequest)
-            selectedCar = res.first
-            insertDataFrom(seletedCar: selectedCar!)
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
         
         
     }
